@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <input v-model="line">
+    <div class="sticky-block">
+      <input v-model="line">
+      <button @click="save">Сохранить</button>
+    </div>
+    
     <div class="container">
       <letter v-for="(character, i) in line" :key="i" :character="character"/>
     </div>
@@ -18,6 +22,14 @@ export default {
     return  {
       line: '3,1415926'
     }
+  },
+  created () {
+    this.line = localStorage.getItem('line') || '3,1415926'
+  },
+  methods: {
+    save () {
+      localStorage.setItem('line', this.line)
+    }
   }
 }
 </script>
@@ -34,7 +46,7 @@ export default {
   padding: 20px;
 
 }
-input {
+.sticky-block {
   position: sticky;
   top: 50px;
   left: 28px;
